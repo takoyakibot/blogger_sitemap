@@ -35,16 +35,23 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h2>Blogger Sitemap Generator</h2>
-      <form onSubmit={handleSubmit}>
+      <div className={styles.inputContainer}>
+        https://
         <input
+          className={styles.input}
           type="text"
+          placeholder="whyimoeat"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
-          placeholder="BloggerサイトマップのURLを入力"
-          className={styles.input}
-        />
-        <button type="submit" className={styles.button}>実行</button>
-      </form>
+        />.blogspot.com/sitemap.html
+        <button
+          className={styles.button}
+          type="submit"
+        >
+          実行
+        </button>
+      </div>
+
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </main>
   );
