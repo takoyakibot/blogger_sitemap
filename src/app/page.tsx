@@ -40,7 +40,7 @@ export default function Home() {
         <input
           className={styles.input}
           type="text"
-          placeholder="whyimoeat"
+          placeholder="blogger"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />.blogspot.com/sitemap.html

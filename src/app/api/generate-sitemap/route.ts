@@ -14,7 +14,7 @@ type SitemapResult = {
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
-  const url = searchParams.get('url');
+  const url = 'https://' + searchParams.get('url') + '.blogspot.com/sitemap.html';
 
   if (!url) {
     return NextResponse.json({ error: 'URLが必要です' }, { status: 400 });
