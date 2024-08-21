@@ -17,7 +17,7 @@ export default function Home() {
         const blob = await response.blob();
         const link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
-        link.download = 'modified_sitemap.xml';
+        link.download = 'modified_sitemap.zip';
         link.click();
       } else {
         setError('サイトマップの生成に失敗しました');
