@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <h2>Blogger Sitemap Generator</h2>
-      <div className={styles.inputContainer}>
+      <form className={styles.inputContainer} onSubmit={handleSubmit}>
         https://
         <input
           className={styles.input}
@@ -45,7 +45,7 @@ export default function Home() {
         >
           実行
         </button>
-      </div>
+      </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </main>
