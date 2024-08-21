@@ -11,11 +11,6 @@ export default function Home() {
     e.preventDefault();
     setError('');
 
-    if (!url.endsWith('sitemap.xml')) {
-      setError('Bloggerのサイトマップを指定してください');
-      return;
-    }
-
     try {
       const response = await fetch(`/api/generate-sitemap?url=${encodeURIComponent(url)}`);
       if (response.ok) {
