@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
     const result = await parseStringPromise(xml);
 
     const zip = new JSZip();
+    let sitemapIndexEntries: string[] = [];
 
     if (result.urlset) {
       // 単一のサイトマップの場合
@@ -23,6 +24,7 @@ export async function GET(req: NextRequest) {
 
       const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>`;
       zip.file('sitemap1.xml', sitemapContent);
+      sitemapIndexEntries.push(`<sitemap><loc>sitemap1.xml</loc></sitemap>`);
 
     } else if (result.sitemapindex) {
       // 複数のサイトマップの場合
@@ -37,12 +39,19 @@ export async function GET(req: NextRequest) {
         });
 
         const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>`;
-        zip.file(`sitemap${index + 1}.xml`, sitemapContent);
+        const filename = `sitemap${index + 1}.xml`;
+        zip.file(filename, sitemapContent);
+        sitemapIndexEntries.push(`<sitemap><loc>${filename}</loc></sitemap>`);
       });
 
       await Promise.all(sitemapPromises);
     }
 
+    // sitemapindex.xmlを作成
+    const sitemapIndexContent = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapIndexEntries.join('\n')}\n</sitemapindex>`;
+    zip.file('sitemap.xml', sitemapIndexContent);
+
+    // ZIPファイルを生成してレスポンスとして返す
     const zipContent = await zip.generateAsync({ type: 'nodebuffer' });
 
     return new NextResponse(zipContent, {
@@ -51,6 +60,7 @@ export async function GET(req: NextRequest) {
         'Content-Disposition': 'attachment; filename="sitemaps.zip"',
       },
     });
+
   } catch (error) {
     return NextResponse.json({ error: 'サイトマップの解析に失敗しました' }, { status: 500 });
   }
