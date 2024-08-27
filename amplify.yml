@@ -1,7 +1,7 @@
 version: 1
 applications:
   - name: blogger_sitemap
-    root: /src/app
+    appRoot: src/app
     frontend:
       phases:
         preBuild:
