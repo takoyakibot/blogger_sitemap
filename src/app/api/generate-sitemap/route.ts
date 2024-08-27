@@ -3,8 +3,7 @@ import { parseStringPromise } from 'xml2js';
 import JSZip from 'jszip';
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const url = searchParams.get('url');
+  const url = 'whyimoeat';
   const fullUrl = 'https://' + url + '.blogspot.com/sitemap.xml';
 
   try {
