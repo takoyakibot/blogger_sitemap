@@ -1,19 +1,19 @@
 version: 1
 applications:
   - name: blogger_sitemap
-  root: /src/app
-  frontend:
-    phases:
-      preBuild:
-        commands:
-          - npm install
-      build:
-        commands:
-          - npx next build
-    artifacts:
-      baseDirectory: .next
-      files:
-        - '**/*'
-    cache:
-      paths:
-        - node_modules/**/*
+    root: /src/app
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install
+        build:
+          commands:
+            - npx next build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
