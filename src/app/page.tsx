@@ -12,7 +12,7 @@ export default function Home() {
     setError('');
 
     try {
-      const response = await fetch(`/api/generate-sitemap?url=${encodeURIComponent(url)}`);
+      const response = await fetch(`/api/generate-sitemap`);
       if (response.ok) {
         const blob = await response.blob();
         const link = document.createElement('a');
@@ -35,7 +35,7 @@ export default function Home() {
         <input
           className={styles.input}
           type="text"
-          placeholder="blogger"
+          placeholder="whyimoeat"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />.blogspot.com/sitemap.html
